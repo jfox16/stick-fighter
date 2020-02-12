@@ -2,7 +2,7 @@
 class Player {
   constructor() {
     this.position = {x: 400, y: 300};
-    this.inputs = {
+    this.input = {
       left: false,
       right: false,
       up: false,
@@ -16,18 +16,17 @@ class Player {
   update() {
     // Move
     let xInput = 0;
-    if (this.inputs.left) xInput--;
-    if (this.inputs.right) xInput++;
+    if (this.input.left) xInput--;
+    if (this.input.right) xInput++;
     let yInput = 0;
-    if (this.inputs.up) yInput--;
-    if (this.inputs.down) yInput++;
+    if (this.input.up) yInput--;
+    if (this.input.down) yInput++;
     this.position.x += xInput * this.movespeed.x;
     this.position.y += yInput * this.movespeed.y;
   }
 
-  setInput(key, value) {
-    this.inputs[key] = value;
-    console.log(this.inputs);
+  setButton(button, value) {
+    this.input[button] = value;
   }
 }
 

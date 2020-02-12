@@ -17,40 +17,28 @@ var inputs = {
   right: false,
 }
 
-document.addEventListener("keydown", function(e) {
-  let key = keyMap[e.keyCode];
-  // only emit if input has changed
-  if (key !== undefined && inputs[key] === false) {
-    inputs[key] = true;
-    socket.emit("setInput", {key: key, value: true});
+const setButton = (button, value) => {
+  if (button !== undefined && inputs[button] !== value) {
+    inputs[button] = value;
+    socket.emit("setButton", {button: button, value: value});
   }
+}
+
+// Event listeners
+document.addEventListener("keydown", function(e) {
+  let button = keyMap[e.keyCode];
+  setButton(button, true);
 });
 
 document.addEventListener("keyup", function(e) {
-  let key = keyMap[e.keyCode];
-  // only emit if input has changed
-  if (key !== undefined && inputs[key] === true) {
-    inputs[key] = false;
-    socket.emit("setInput", {key: key, value: false});
-  }
+  let button = keyMap[e.keyCode];
+  setButton(button, false);
 });
-
-socket.on("disconnect", () => {
-  socket.emit("player disconnected");
-});
-
-socket.emit('player connected');
 
 var canvas = document.getElementById('canvas');
 canvas.width = 800;
 canvas.height = 600;
 var context = canvas.getContext("2d");
-
-var playerImg = new Image();
-playerImg.onload = () => {
-  console.log("done loading!");
-}
-playerImg.src = "/sprites/stickman-placeholder.png";
 
 socket.on("players", function(players) {
   context.clearRect(0, 0, 800, 600);
@@ -64,13 +52,5 @@ socket.on("players", function(players) {
       10, 0, 2 * Math.PI
     );
     context.fill();
-
-    if (playerImg.complete && playerImg.naturalHeight !== 0) {
-      console.log("drawing!!");
-      context.drawImage(playerImg, player.position.x, player.position.y);
-    }
-    else {
-      console.log("not drawing");
-    }
   }
 })

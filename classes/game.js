@@ -7,22 +7,19 @@ class Game {
     this.players = {};
 
     this.io.on("connection", (socket) => {
+      io.sockets.emit("message", `Player at socket ${socket.id} has connected.`);
+      this.players[socket.id] = new Player();
+
       // set up event listeners
-      socket.on("player connected", () => {
-        socket.emit("message", `Player at socket ${socket.id} has connected.`);
-        this.players[socket.id] = new Player();
-        console.log(this.players);
-      });
-  
-      socket.on("player disconnected", () => {
-        socket.emit("message", `Player at socket ${socket.id} has disconnected.`);
+      socket.on("disconnect", (reason) => {
+        io.sockets.emit("message", `Player at socket ${socket.id} has disconnected. Reason: ${reason}`);
         delete this.players[socket.id];
       });
   
-      socket.on("setInput", (input) => {
+      socket.on("setButton", (input) => {
         let player = this.players[socket.id];
         if (player) {
-          player.setInput(input.key, input.value);
+          player.setButton(input.button, input.value);
         }
       });
     })
