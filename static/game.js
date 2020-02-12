@@ -19,13 +19,11 @@ var inputs = {
 
 document.addEventListener("keydown", function(e) {
   inputs[keyMap[e.keyCode]] = true;
-  console.log(inputs);
   socket.emit("inputs", inputs);
 });
 
 document.addEventListener("keyup", function(e) {
   inputs[keyMap[e.keyCode]] = false;
-  console.log(inputs);
   socket.emit("inputs", inputs);
 })
 

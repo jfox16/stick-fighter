@@ -1,11 +1,14 @@
 var express = require("express");
 var http = require("http");
-var path = require("path");
 var socketIO = require("socket.io");
+var path = require("path");
+const PORT = process.env.port || 5000;
+
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
-app.set('port', 5000);
+
+app.set('port', PORT);
 app.use('/static', express.static(__dirname + '/static'));
 
 // Routing
@@ -14,13 +17,11 @@ app.get('/', function(req, res) {
 });
 
 // Start the server
-server.listen(5000, function() {
-  console.log('Starting server on port 5000');
-});
+server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
 // Add the WebSocket handlers
 io.on("connection", function(socket) {
-
+  
 });
 
 const players = {};
