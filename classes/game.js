@@ -16,10 +16,10 @@ class Game {
         delete this.players[socket.id];
       });
   
-      socket.on("setButton", (input) => {
+      socket.on("setButton", ({button, value}) => {
         let player = this.players[socket.id];
         if (player) {
-          player.setButton(input.button, input.value);
+          player.setButton(button, value);
         }
       });
     })

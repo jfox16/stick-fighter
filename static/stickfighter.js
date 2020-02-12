@@ -38,19 +38,30 @@ document.addEventListener("keyup", function(e) {
 var canvas = document.getElementById('canvas');
 canvas.width = 800;
 canvas.height = 600;
-var context = canvas.getContext("2d");
+var ctx = canvas.getContext("2d");
 
 socket.on("players", function(players) {
-  context.clearRect(0, 0, 800, 600);
-  context.fillStyle='gray';
+  ctx.clearRect(0, 0, 800, 600);
+  ctx.fillStyle='hsla(0, 0%, 0%, 0.5)';
   for (var id in players) {
     var player = players[id];
-    context.beginPath();
-    context.arc(
+    ctx.beginPath();
+    ctx.arc(
       player.position.x, 
       player.position.y,
       10, 0, 2 * Math.PI
     );
-    context.fill();
+    ctx.fill();
   }
+
+  ctx.fillStyle='yellow';
+  ctx.font = "30px Arial";
+  ctx.fillText(currentLatency, 10, 30);
 })
+
+var currentLatency = 0;
+
+socket.on('pong', function(latency) {
+  currentLatency = latency;
+});
+
