@@ -54,9 +54,9 @@ socket.on("players", function(players) {
     ctx.fill();
   }
 
-  ctx.fillStyle='yellow';
-  ctx.font = "30px Arial";
-  ctx.fillText(currentLatency, 10, 30);
+  ctx.fillStyle='blue';
+  ctx.font = "12px Arial";
+  ctx.fillText(`Ping: ${currentLatency}`, 10, 20);
 })
 
 var currentLatency = 0;
