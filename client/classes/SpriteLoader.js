@@ -31,7 +31,6 @@ class SpriteLoader {
       let image = new Image();
       image.src = IMG_PATH + '/' + filename;
       let sprite = new Sprite(image, cellSize, offset);
-      console.log(sprite);
       this.sprites[spriteKey] = sprite;
     });
   }

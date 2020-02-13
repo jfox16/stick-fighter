@@ -63,9 +63,12 @@ class StickMan {
 
   getDrawInfo() {
     return {
-      spriteKey: this.animation.spriteKey,
-      index: this.animation.index,
+      position: this.position,
       facingRight: this.facingRight,
+      animation: {
+        spriteKey: this.animation.spriteKey,
+        index: this.animation.index
+      },
     }
   }
 }

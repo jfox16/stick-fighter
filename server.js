@@ -18,7 +18,6 @@ let game = new Game(io); // initialize game
 
 app.set('port', PORT);
 app.use('/client', express.static(__dirname + '/client'));
-console.log(__dirname);
 
 // Routing
 app.get('/', (req, res) => {

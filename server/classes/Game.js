@@ -32,8 +32,11 @@ class Game {
   }
 
   sendState() {
+    let players = Object.values(this.players).map((player) => {
+      return player.getDrawInfo();
+    });
     this.io.sockets.emit("sendState", {
-      players: this.players,
+      players: players,
     });
   }
 }

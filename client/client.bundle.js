@@ -13,7 +13,10 @@ class DrawHandler {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     if (state.players) {
-      Object.values(state.players).forEach((player) => {
+      state.players.sort((a, b) => {
+        return a.position.y - b.position.y;
+      })
+      state.players.forEach((player) => {
         // draw player image
         this.sprites['stickmanShadow'].draw(this.context, player.position.x, player.position.y);
         let {spriteKey, index} = player.animation;
@@ -92,7 +95,6 @@ class SpriteLoader {
       let image = new Image();
       image.src = IMG_PATH + '/' + filename;
       let sprite = new Sprite(image, cellSize, offset);
-      console.log(sprite);
       this.sprites[spriteKey] = sprite;
     });
   }
