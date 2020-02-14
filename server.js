@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 // GAME CLOCK
 setInterval(function() {
-  // console.log('butt'); // THis makes the game run properly for some reason
+  console.log('butt'); // THis makes the game run properly for some reason
   if (game) {
     game.update();
     game.sendState();

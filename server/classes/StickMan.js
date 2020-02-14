@@ -24,8 +24,9 @@ const attacks = {
 }
 
 class StickMan {
-  constructor(game) {
+  constructor(game, id) {
     this.game = game;
+    this.id = id;
     this.position = {x: 400, y: 300};
     this.hurtbox = {
       size: {x: 44, y: 12},
@@ -95,16 +96,13 @@ class StickMan {
       case actions.ATTACK.PUNCH:
         if (this.animation.index === 3) {
           let attack = (!this.facingRight) ? attacks.punch : attacks.punchR;
-          this.game.doAttack(attack, this.position);
+          this.game.doAttack(attack, this.position, this.id);
         }
         if (this.animation.isDone()) {
           this.action = actions.NONE;
         }
         break;
     }
-
-    // animate sprite
-    this.animation.update();
   }
 
   setButton(button, value) {
