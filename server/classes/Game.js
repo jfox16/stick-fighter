@@ -40,10 +40,24 @@ class Game {
     });
   }
 
-  doAttack(attack, position, attackerId) {
+  doAttack(attack, attacker) {
     Object.values(this.players).forEach((player) => {
-      if (player.id !== attackerId) player.hurt();
+      if (
+        player.id !== attacker.id 
+        && this.checkCollision(attack.hitbox, attacker.position, player.hurtbox, player.position)
+      ) {
+        player.hurt();
+      }
     });
+  }
+
+  checkCollision(box1, box1Pos, box2, box2Pos) {
+    return (
+      box1Pos.x + box1.offset.x < box2Pos.x + box2.offset.x + box2.size.x
+      && box1Pos.x + box1.offset.x + box1.size.x > box2Pos.x + box2.offset.x
+      && box1Pos.y + box1.offset.y < box2Pos.y + box2.offset.y + box2.size.y
+      && box1Pos.y + box1.offset.y + box1.size.y > box2Pos.y + box2.offset.y
+    );
   }
 }
 

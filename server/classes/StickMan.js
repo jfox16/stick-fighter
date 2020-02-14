@@ -11,13 +11,13 @@ const actions = {
 const attacks = {
   punch: {
     hitbox: {
-      size: {x: 64, y: 20},
-      offset: {x: -64, y: -10}
+      size: {x: 56, y: 20},
+      offset: {x: -56, y: -10}
     }
   },
   punchR: {
     hitbox: {
-      size: {x: 64, y: 20},
+      size: {x: 56, y: 20},
       offset: {x: 0, y: -10}
     }
   }
@@ -41,10 +41,10 @@ class StickMan {
       standR: new Animation('stickmanR', 0, 2, 4, true),
       run: new Animation('stickman', 3, 6, 3, true),
       runR: new Animation('stickmanR', 3, 6, 3, true),
-      hurt: new Animation('stickman', 7, 10, 4, false),
-      hurtR: new Animation('stickmanR', 7, 10, 4, false),
-      punch: new Animation('stickmanAttacks', 0, 5, 3, false),
-      punchR: new Animation('stickmanAttacksR', 0, 5, 3, false),
+      hurt: new Animation('stickman', 7, 10, 3, false),
+      hurtR: new Animation('stickmanR', 7, 10, 3, false),
+      punch: new Animation('stickmanAttacks', 0, 6, 3, false),
+      punchR: new Animation('stickmanAttacksR', 0, 6, 3, false),
     };
 
     this.action = actions.NONE;
@@ -96,7 +96,7 @@ class StickMan {
       case actions.ATTACK.PUNCH:
         if (this.animation.index === 3) {
           let attack = (!this.facingRight) ? attacks.punch : attacks.punchR;
-          this.game.doAttack(attack, this.position, this.id);
+          this.game.doAttack(attack, this);
         }
         if (this.animation.isDone()) {
           this.action = actions.NONE;
