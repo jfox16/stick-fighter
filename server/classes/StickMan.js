@@ -11,14 +11,14 @@ const actions = {
 const attacks = {
   punch: {
     hitbox: {
-      size: {x: 56, y: 20},
-      offset: {x: -56, y: -10}
+      size: {x: 56, y: 24},
+      offset: {x: -56, y: -12}
     }
   },
   punchR: {
     hitbox: {
-      size: {x: 56, y: 20},
-      offset: {x: 0, y: -10}
+      size: {x: 56, y: 24},
+      offset: {x: 0, y: -12}
     }
   }
 }
