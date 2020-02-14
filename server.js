@@ -9,7 +9,7 @@ const Game = require('./server/classes/Game');
 
 // constants
 const PORT = process.env.PORT || 5000;
-const FRAME_RATE = 1000 / 60; // 60 fps
+const FRAME_TIME = 1000 / 60;
 
 var app = express();
 var server = http.Server(app);
@@ -18,6 +18,7 @@ let game = new Game(io); // initialize game
 
 app.set('port', PORT);
 app.use('/client', express.static(__dirname + '/client'));
+app.use('/build', express.static(__dirname + '/build'));
 
 // Routing
 app.get('/', (req, res) => {
@@ -26,11 +27,12 @@ app.get('/', (req, res) => {
 
 // GAME CLOCK
 setInterval(function() {
+  // console.log('butt'); // THis makes the game run properly for some reason
   if (game) {
     game.update();
     game.sendState();
   }
-}, FRAME_RATE);
+}, FRAME_TIME);
 
 // Start the server
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));

@@ -14,11 +14,22 @@ class Animation {
     this.frame++;
     if (this.frame >= this.framesPerIndex) {
       this.frame %= this.framesPerIndex;
-      this.index++;
-      if (this.index > this.endIndex) {
-        this.index = this.startIndex
+
+      if (this.index < this.endIndex) {
+        this.index++;
+      }
+      else {
+        if (this.loop) this.reset();
       }
     }
+  }
+
+  reset() {
+    this.index = this.startIndex;
+  }
+
+  isDone() {
+    return this.index === this.endIndex;
   }
 }
 

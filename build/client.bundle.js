@@ -80,6 +80,18 @@ const spriteData = [
     offset: {x: -32, y: -62}
   },
   {
+    spriteKey: 'stickmanAttacks',
+    filename: 'stickmanAttacks.png',
+    cellSize: {x: 128, y: 64},
+    offset: {x: -96, y: -62}
+  },
+  {
+    spriteKey: 'stickmanAttacksR',
+    filename: 'stickmanAttacksR.png',
+    cellSize: {x: 128, y: 64},
+    offset: {x: -32, y: -62}
+  },
+  {
     spriteKey: 'stickmanShadow',
     filename: 'stickmanShadow.png',
     cellSize: {x: 64, y: 32},
@@ -106,24 +118,20 @@ module.exports = SpriteLoader;
 },{"./Sprite":2}],4:[function(require,module,exports){
 const DrawHandler = require("./classes/DrawHandler");
 
-var socket = io();
+const socket = io();
 socket.on("message", function(data) {
   console.log(data);
 })
 
-var keyMap = {
+const keyMap = {
   87: 'up',
   83: 'down',
   65: 'left',
-  68: 'right'
+  68: 'right',
+  75: 'attack',
 }
 
-var inputs = {
-  up: false,
-  down: false,
-  left: false,
-  right: false,
-}
+var inputs = {}
 
 const setButton = (button, value) => {
   if (button !== undefined && inputs[button] !== value) {

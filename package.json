@@ -1,7 +1,7 @@
 {
-  "name": "Stick-Fighter",
+  "name": "StickFighter",
   "scripts": {
-    "server": "browserify -x uws ./client/client.js > ./client/client.bundle.js && node server.js"
+    "server": "browserify -x uws ./client/client.js > ./build/client.bundle.js && node server.js"
   },
   "version": "1.0.0",
   "main": "index.js",

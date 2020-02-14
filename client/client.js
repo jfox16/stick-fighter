@@ -1,23 +1,19 @@
 const DrawHandler = require("./classes/DrawHandler");
 
-var socket = io();
+const socket = io();
 socket.on("message", function(data) {
   console.log(data);
 })
 
-var keyMap = {
+const keyMap = {
   87: 'up',
   83: 'down',
   65: 'left',
-  68: 'right'
+  68: 'right',
+  75: 'attack',
 }
 
-var inputs = {
-  up: false,
-  down: false,
-  left: false,
-  right: false,
-}
+var inputs = {}
 
 const setButton = (button, value) => {
   if (button !== undefined && inputs[button] !== value) {
