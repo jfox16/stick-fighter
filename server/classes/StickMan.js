@@ -2,29 +2,52 @@ const Animation = require('./Animation');
 
 const actions = {
   NONE: 'none',
+  HURT: 'hurt',
   ATTACK: {
     PUNCH: 'attack.punch'
+  },
+}
+
+const attacks = {
+  punch: {
+    hitbox: {
+      size: {x: 64, y: 20},
+      offset: {x: -64, y: -10}
+    }
+  },
+  punchR: {
+    hitbox: {
+      size: {x: 64, y: 20},
+      offset: {x: 0, y: -10}
+    }
   }
 }
 
 class StickMan {
-  constructor() {
+  constructor(game) {
+    this.game = game;
     this.position = {x: 400, y: 300};
-    this.input = {};
+    this.hurtbox = {
+      size: {x: 44, y: 12},
+      offset: {x: -22, y: -6}
+    };
     this.movespeed = {x: 6, y: 4};
     this.facingRight = false;
+    this.input = {};
 
     this.animations = {
       stand: new Animation('stickman', 0, 2, 4, true),
       standR: new Animation('stickmanR', 0, 2, 4, true),
       run: new Animation('stickman', 3, 6, 3, true),
       runR: new Animation('stickmanR', 3, 6, 3, true),
+      hurt: new Animation('stickman', 7, 10, 4, false),
+      hurtR: new Animation('stickmanR', 7, 10, 4, false),
       punch: new Animation('stickmanAttacks', 0, 5, 3, false),
       punchR: new Animation('stickmanAttacksR', 0, 5, 3, false),
     };
 
-    this.animation = this.animations['stand'];
     this.action = actions.NONE;
+    this.animation = this.animations['stand']; 
   }
 
   update() {
@@ -35,6 +58,8 @@ class StickMan {
     let yInput = 0;
     if (this.input.up) yInput--;
     if (this.input.down) yInput++;
+
+    this.animation.update();
 
     switch(this.action) {
       case actions.NONE:
@@ -49,10 +74,10 @@ class StickMan {
           this.facingRight = false;
     
         // SET STAND OR RUN ANIMATION
-        if (xInput !== 0 || yInput !== 0)
-          (!this.facingRight) ? this.animation = this.animations['run'] : this.animation = this.animations['runR'];
+        if (xInput === 0 && yInput === 0)
+          this.animation = (!this.facingRight) ? this.animations['stand'] : this.animations['standR'];
         else
-          (!this.facingRight) ? this.animation = this.animations['stand'] : this.animation = this.animations['standR'];
+          this.animation = (!this.facingRight) ? this.animations['run'] : this.animations['runR'];
 
         // PUNCH
         if (this.input.attack) {
@@ -61,12 +86,18 @@ class StickMan {
           this.animation.reset();
         }
         break;
+
+      case actions.HURT:
+        if (this.animation.isDone()) {
+          this.action = actions.NONE;
+        }
       
       case actions.ATTACK.PUNCH:
         if (this.animation.index === 3) {
-          console.log("PUNCH");
+          let attack = (!this.facingRight) ? attacks.punch : attacks.punchR;
+          this.game.doAttack(attack, this.position);
         }
-        else if (this.animation.isDone()) {
+        if (this.animation.isDone()) {
           this.action = actions.NONE;
         }
         break;
@@ -78,6 +109,12 @@ class StickMan {
 
   setButton(button, value) {
     this.input[button] = value;
+  }
+
+  hurt() {
+    this.action = actions.HURT;
+    this.animation = (!this.facingRight) ? this.animations.hurt : this.animations.hurtR;
+    this.animation.reset();
   }
 
   getDrawInfo() {

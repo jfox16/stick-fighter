@@ -17,7 +17,7 @@ var io = socketIO(server, {pingInterval: 1000});
 let game = new Game(io); // initialize game
 
 app.set('port', PORT);
-app.use('/client', express.static(__dirname + '/client'));
+app.use('/img', express.static(__dirname + '/img'));
 app.use('/build', express.static(__dirname + '/build'));
 
 // Routing

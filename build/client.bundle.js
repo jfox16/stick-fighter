@@ -64,7 +64,7 @@ module.exports = Sprite;
 },{}],3:[function(require,module,exports){
 
 const Sprite = require("./Sprite");
-const IMG_PATH = "/client/img";
+const IMG_PATH = "/img";
 
 const spriteData = [
   {

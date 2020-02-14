@@ -8,7 +8,7 @@ class Game {
 
     this.io.on("connection", (socket) => {
       io.sockets.emit("message", `Player at socket ${socket.id} has connected.`);
-      this.players[socket.id] = new Player();
+      this.players[socket.id] = new Player(this);
 
       // set up event listeners
       socket.on("disconnect", (reason) => {
@@ -37,6 +37,12 @@ class Game {
     });
     this.io.sockets.emit("sendState", {
       players: players,
+    });
+  }
+
+  doAttack(attack, position) {
+    Object.values(this.players).forEach((player) => {
+      player.hurt();
     });
   }
 }

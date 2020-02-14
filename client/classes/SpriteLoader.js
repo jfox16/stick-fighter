@@ -1,6 +1,6 @@
 
 const Sprite = require("./Sprite");
-const IMG_PATH = "/client/img";
+const IMG_PATH = "/img";
 
 const spriteData = [
   {
