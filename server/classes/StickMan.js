@@ -39,12 +39,12 @@ class StickMan {
     this.animations = {
       stand: new Animation('stickman', 0, 2, 4, true),
       standR: new Animation('stickmanR', 0, 2, 4, true),
-      run: new Animation('stickman', 3, 6, 3, true),
-      runR: new Animation('stickmanR', 3, 6, 3, true),
-      hurt: new Animation('stickman', 7, 10, 3, false),
-      hurtR: new Animation('stickmanR', 7, 10, 3, false),
-      punch: new Animation('stickmanAttacks', 0, 6, 3, false),
-      punchR: new Animation('stickmanAttacksR', 0, 6, 3, false),
+      run: new Animation('stickman', 3, 4, 3, true),
+      runR: new Animation('stickmanR', 3, 4, 3, true),
+      hurt: new Animation('stickman', 7, 4, 4, false),
+      hurtR: new Animation('stickmanR', 7, 4, 4, false),
+      punch: new Animation('stickmanAttacks', 0, 5, 3, false),
+      punchR: new Animation('stickmanAttacksR', 0, 5, 3, false),
     };
 
     this.action = actions.NONE;
@@ -89,7 +89,7 @@ class StickMan {
         break;
 
       case actions.HURT:
-        if (this.animation.isDone()) {
+        if (this.animation.isDone) {
           this.action = actions.NONE;
         }
       
@@ -98,7 +98,7 @@ class StickMan {
           let attack = (!this.facingRight) ? attacks.punch : attacks.punchR;
           this.game.doAttack(attack, this);
         }
-        if (this.animation.isDone()) {
+        if (this.animation.isDone) {
           this.action = actions.NONE;
         }
         break;
@@ -121,7 +121,7 @@ class StickMan {
       facingRight: this.facingRight,
       animation: {
         spriteKey: this.animation.spriteKey,
-        index: this.animation.index
+        index: this.animation.getDrawIndex(),
       },
     }
   }

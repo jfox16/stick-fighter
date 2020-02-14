@@ -1,35 +1,42 @@
 class Animation {
-  constructor(spriteKey, startIndex=0, endIndex=0, framesPerIndex=0, loop=true) {
+  constructor(spriteKey='placeholder', startIndex=0, numIndices=1, framesPerIndex=1, loop=true) {
     this.spriteKey = spriteKey;
     this.startIndex = startIndex;
-    this.endIndex = endIndex;
+    this.numIndices = numIndices;
     this.framesPerIndex = framesPerIndex;
     this.loop = loop;
 
+    this.isDone = false;
     this.frame = 0;
-    this.index = startIndex;
+    this.index = 0;
   }
 
   update() {
-    this.frame++;
-    if (this.frame >= this.framesPerIndex) {
-      this.frame %= this.framesPerIndex;
-
-      if (this.index < this.endIndex) {
+    if (this.frame < this.framesPerIndex - 1) {
+      this.frame++;
+    }
+    else {
+      if (this.index < this.numIndices) {
+        this.frame = 0;
         this.index++;
       }
       else {
-        if (this.loop) this.reset();
+        if (this.loop) 
+          this.reset();
+        else
+          this.isDone = true;
       }
     }
   }
 
   reset() {
-    this.index = this.startIndex;
+    this.isDone = false;
+    this.frame = 0;
+    this.index = 0;
   }
 
-  isDone() {
-    return this.index === this.endIndex;
+  getDrawIndex() {
+    return this.startIndex + this.index;
   }
 }
 

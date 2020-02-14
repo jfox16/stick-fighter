@@ -9,7 +9,7 @@ const Game = require('./server/classes/Game');
 
 // constants
 const PORT = process.env.PORT || 5000;
-const FRAME_TIME = 1000 / 60;
+const FRAME_TIME = Math.floor(1000 / 60);
 
 var app = express();
 var server = http.Server(app);
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 // GAME CLOCK
 setInterval(function() {
-  console.log('butt'); // THis makes the game run properly for some reason
+  // console.log('butt'); // THis makes the game run properly for some reason
   if (game) {
     game.update();
     game.sendState();
