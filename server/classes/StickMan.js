@@ -91,7 +91,9 @@ class StickMan {
       case actions.HURT:
         if (this.animation.isDone) {
           this.action = actions.NONE;
+          this.animation = (!this.facingRight) ? this.animations['stand'] : this.animations['standR'];
         }
+        break;
       
       case actions.ATTACK.PUNCH:
         if (this.animation.index === 3) {
@@ -100,6 +102,7 @@ class StickMan {
         }
         if (this.animation.isDone) {
           this.action = actions.NONE;
+          this.animation = (!this.facingRight) ? this.animations['stand'] : this.animations['standR'];
         }
         break;
     }

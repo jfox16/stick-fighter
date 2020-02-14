@@ -12,19 +12,21 @@ class Animation {
   }
 
   update() {
-    if (this.frame < this.framesPerIndex - 1) {
+    if (!this.isDone) {
       this.frame++;
-    }
-    else {
-      if (this.index < this.numIndices) {
+      if (this.frame === this.framesPerIndex) {
         this.frame = 0;
         this.index++;
-      }
-      else {
-        if (this.loop) 
-          this.reset();
-        else
-          this.isDone = true;
+        if (this.index === this.numIndices) {
+          if (this.loop) {
+            this.frame = 0;
+            this.index = 0;
+          }
+          else {
+            this.index = this.numIndices - 1;
+            this.isDone = true;
+          }
+        }
       }
     }
   }
