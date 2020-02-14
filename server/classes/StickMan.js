@@ -43,8 +43,8 @@ class StickMan {
       runR: new Animation('stickmanR', 3, 4, 3, true),
       hurt: new Animation('stickman', 7, 4, 4, false),
       hurtR: new Animation('stickmanR', 7, 4, 4, false),
-      punch: new Animation('stickmanAttacks', 0, 5, 3, false),
-      punchR: new Animation('stickmanAttacksR', 0, 5, 3, false),
+      punch: new Animation('stickmanAttacks', 0, 6, 3, false),
+      punchR: new Animation('stickmanAttacksR', 0, 6, 3, false),
     };
 
     this.action = actions.NONE;
