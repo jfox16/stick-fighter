@@ -37,15 +37,18 @@ class StickMan {
     this.input = {};
 
     this.animations = {
-      stand: new Animation('stickman', 0, 2, 4, true),
-      standR: new Animation('stickmanR', 0, 2, 4, true),
+      stand: new Animation('stickman', 0, 3, 4, true),
+      standR: new Animation('stickmanR', 0, 3, 4, true),
       run: new Animation('stickman', 3, 4, 3, true),
       runR: new Animation('stickmanR', 3, 4, 3, true),
-      hurt: new Animation('stickman', 7, 4, 4, false),
-      hurtR: new Animation('stickmanR', 7, 4, 4, false),
+      hurt: new Animation('stickman', 7, 5, 3, false),
+      hurtR: new Animation('stickmanR', 7, 5, 3, false),
       punch: new Animation('stickmanAttacks', 0, 6, 3, false),
       punchR: new Animation('stickmanAttacksR', 0, 6, 3, false),
     };
+
+    this.animations.punch.onIndex( 3, () => {this.game.doAttack(attacks.punch, this)} );
+    this.animations.punchR.onIndex( 3, () => {this.game.doAttack(attacks.punchR, this)} );
 
     this.action = actions.NONE;
     this.animation = this.animations['stand']; 
@@ -96,10 +99,6 @@ class StickMan {
         break;
       
       case actions.ATTACK.PUNCH:
-        if (this.animation.index === 3) {
-          let attack = (!this.facingRight) ? attacks.punch : attacks.punchR;
-          this.game.doAttack(attack, this);
-        }
         if (this.animation.isDone) {
           this.action = actions.NONE;
           this.animation = (!this.facingRight) ? this.animations['stand'] : this.animations['standR'];

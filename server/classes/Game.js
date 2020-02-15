@@ -47,6 +47,8 @@ class Game {
         && this.checkCollision(attack.hitbox, attacker.position, player.hurtbox, player.position)
       ) {
         player.hurt();
+        attacker.animation.pause(5);
+        player.animation.pause(5);
       }
     });
   }

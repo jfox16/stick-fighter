@@ -9,26 +9,49 @@ class Animation {
     this.isDone = false;
     this.frame = 0;
     this.index = 0;
+
+    this.pauseFrames = 0;
+    this.onIndexMethods = {};
   }
 
   update() {
-    if (!this.isDone) {
-      this.frame++;
-      if (this.frame === this.framesPerIndex) {
-        this.frame = 0;
-        this.index++;
-        if (this.index === this.numIndices) {
-          if (this.loop) {
-            this.frame = 0;
-            this.index = 0;
-          }
-          else {
-            this.index = this.numIndices - 1;
-            this.isDone = true;
-          }
+    if (this.isDone) {
+      return;
+    }
+
+    if (this.pauseFrames > 0) {
+      this.pauseFrames--;
+      return;
+    }
+
+    this.frame++;
+    if (this.frame === this.framesPerIndex) {
+      this.frame = 0;
+      this.index++;
+
+      if (this.onIndexMethods[this.index]) {
+        this.onIndexMethods[this.index]();
+      }
+
+      if (this.index === this.numIndices) {
+        if (this.loop) {
+          this.frame = 0;
+          this.index = 0;
+        }
+        else {
+          this.index = this.numIndices - 1;
+          this.isDone = true;
         }
       }
     }
+  }
+
+  onIndex(index, method) {
+    this.onIndexMethods[index] = method;
+  }
+
+  pause(pauseFrames) {
+    this.pauseFrames = pauseFrames;
   }
 
   reset() {
