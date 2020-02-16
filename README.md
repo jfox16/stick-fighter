@@ -1,4 +1,4 @@
-# stick-fighter
+# Stick Fighter
 
 Multiplayer Fighting game built in JS with an Express server and Socket.io
 
